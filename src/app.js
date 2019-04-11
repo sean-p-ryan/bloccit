@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
 
-const couteConfig = require("./config/route-config.js");
+const routeConfig = require("./config/route-config.js");
 
-module.exports = app;
+routeConfig.init(app);
