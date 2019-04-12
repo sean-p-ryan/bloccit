@@ -16,11 +16,8 @@
     "request": "^2.83.0"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "ejs": "^2.5.7",
-=======
     "dotenv": "^5.0.0",
->>>>>>> checkpoint-3-deploying-to-production
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
     "json": "^9.0.6"
   }
