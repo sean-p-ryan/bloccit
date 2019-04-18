@@ -1,4 +1,4 @@
-const Topic = require("./models").Topics;
+const Topics = require("./models").Topic;
 
 module.exports = {
 

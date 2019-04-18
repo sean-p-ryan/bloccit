@@ -2,13 +2,13 @@ const request = require("request");
 const server = require("../../src/server");
 const base = "http://localhost:3000/topics/";
 const sequelize = require("../../src/db/models/index").sequelize;
-const Topic = require("../../src/db/models").Topic;
+const Topics = require("../../src/db/models").Topics;
 
 describe("routes : topics", () => {
   beforeEach((done) => {
     this.topic;
     sequelize.sync({ force: true }).then((res) => {
-      Topic.create({
+      Topics.create({
         title: "JS Frameworks",
         description: "There is a lot of them"
       })

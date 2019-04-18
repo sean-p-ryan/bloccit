@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING
   }, {});
-  Topic.associate = function(models) {
+  Topics.associate = function(models) {
     // associations can be defined here
-    Topic.hasMany(models.Banner, {
+    Topics.hasMany(models.Banner, {
       foreignKey: "topicId",
       as: "banners",
     });
