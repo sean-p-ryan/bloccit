@@ -4,12 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING
   }, {});
-  Topics.associate = function(models) {
+  Topic.associate = function(models) {
     // associations can be defined here
-  };  
-  Topics.hasMany(models.Banner, {
-    foreignKey: "topicId",
-    as: "banners",
-  });
+    Topic.hasMany(models.Banner, {
+      foreignKey: "topicId",
+      as: "banners",
+    });
+  };
   return Topics;
 };
