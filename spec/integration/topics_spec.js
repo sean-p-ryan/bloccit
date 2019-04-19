@@ -24,13 +24,7 @@ describe("routes : topics", () => {
 
     });
   }); 
-  describe("fake stuff", () => {
-    it("should be true", (done) => {
-        expect(true).toBe(true);
-        done();
-    });
-  });
-
+  
   describe("GET /topics", () => {
     it("should return a status code 200 and all topics", (done) => {
 
