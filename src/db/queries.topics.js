@@ -9,7 +9,7 @@ module.exports = {
       callback(null, topics);
     })
     .catch((err) => {
-      console.log("didn't work")
+      console.log(err)
       callback(err);
     })
   }
