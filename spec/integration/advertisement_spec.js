@@ -59,7 +59,6 @@ describe("routes : advertisement", () => {
   
         it("should create a new ad and redirect", (done) => {
           request.post(options,
-  
   //#2
             (err, res, body) => {
               Advertisement.findOne({where: {title: "blink-182 songs"}})
