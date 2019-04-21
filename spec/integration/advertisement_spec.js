@@ -7,14 +7,14 @@ const Advertisement = require("../../src/db/models").Advertisement;
 describe("routes : advertisement", () => {
 
     beforeEach((done) => {
-        this.topic;
+        this.ad;
         sequelize.sync({ force: true }).then((res) => {
             Advertisement.create({
                 title: "This is an ad.",
                 description: "Ad description."
             })
-                .then((topic) => {
-                    this.topic = topic;
+                .then((ad) => {
+                    this.ad = ad;
                     done();
                 })
                 .catch((err) => {
