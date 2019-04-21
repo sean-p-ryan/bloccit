@@ -10,20 +10,22 @@ module.exports = {
             }
         })
     },
-    new(req, res, next){
+    new(req, res, next) {
         res.render("advertisement/new");
     },
-    create(req, res, next){
+    create(req, res, next) {
         let newAd = {
-          title: req.body.title,
-          description: req.body.description
+            title: req.body.title,
+            description: req.body.description
         };
-        AdQueries.addAdvertisement(newAd, (err, ad) => {
-          if(err){
-            res.redirect(500, "/advertisements/new");
-          } else {
-            res.redirect(303, `/advertisements/${ad.id}`);
-          }
+        adQueries.addAdvertisement(newAd, (err, ad) => {
+            if (err || !ad) {
+                console.log("AD:", ad);
+                console.log("ERROR:", err);
+                res.redirect(500, "/advertisements/new");
+            } else {
+                res.redirect(303, `/advertisement/${ad.id}`);
+            }
         });
-      }
+    }
 }
