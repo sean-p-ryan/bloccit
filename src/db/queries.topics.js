@@ -5,11 +5,30 @@ module.exports = {
   getAllTopics(callback){
     return Topic.all()
     .then((topics) => {
-        console.log('Worked')
       callback(null, topics);
     })
     .catch((err) => {
-      console.log(err)
+      callback(err);
+    })
+  },
+  getTopic(id, callback){
+    return Topic.findById(id)
+    .then((topic) => {
+      callback(null, topic);
+    })
+    .catch((err) => {
+      callback(err);
+    })
+  },
+  addTopic(newTopic, callback){
+    return Topic.create({
+      title: newTopic.title,
+      description: newTopic.description
+    })
+    .then((topic) => {
+      callback(null, topic);
+    })
+    .catch((err) => {
       callback(err);
     })
   },
