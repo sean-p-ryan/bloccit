@@ -22,7 +22,7 @@ module.exports = {
             if (err || !ad) {
                 console.log("AD:", ad);
                 console.log("ERROR:", err);
-                res.redirect(500, "/advertisements/new");
+                res.redirect(500, "/advertisement/new");
             } else {
                 res.redirect(303, `/advertisement/${ad.id}`);
             }
@@ -33,7 +33,36 @@ module.exports = {
             if (err || ad == null) {
                 res.redirect(404, "/");
             } else {
-                res.render("/show", { ad });
+                res.render("advertisement/show", { ad });
+            }
+        });
+    },
+    destroy(req, res, next) {
+        adQueries.deleteAd(req.params.id, (err, ad) => {
+            if (err) {
+                res.redirect(500, `/advertisement/${ad.id}`)
+            } else {
+                res.redirect(303, "/advertisement")
+            }
+        });
+    },
+    edit(req, res, next) {
+        adQueries.getAd(req.params.id, (err, ad) => {
+            if (err || ad == null) {
+                res.redirect(404, "/");
+            } else {
+                res.render("topics/edit", { ad });
+            }
+        });
+    },
+    update(req, res, next) {
+
+        adQueries.updateAd(req.params.id, req.body, (err, ad) => {
+
+            if (err || ad == null) {
+                res.redirect(404, `/advertisement/${req.params.id}/edit`);
+            } else {
+                res.redirect(`/advertisement/${topic.id}`);
             }
         });
     }

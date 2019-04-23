@@ -27,7 +27,7 @@ describe("routes : advertisement", () => {
 
     describe("GET /advertisement", () => {
 
-        it("should return a status code 200 and all advertisements", (done) => {
+        it("should return a status code 200 and all advertisement", (done) => {
             request.get(base, (err, res) => {
                 expect(res.statusCode).toBe(200);
                 expect(err).toBeNull();
@@ -48,7 +48,7 @@ describe("routes : advertisement", () => {
 
     });
 
-    describe("POST /advertisements/create", () => {
+    describe("POST /advertisement/create", () => {
         const options = {
             url: `${base}create`,
             form: {
@@ -76,7 +76,7 @@ describe("routes : advertisement", () => {
             );
         });
     });
-    describe("GET /advertisements/:id", () => {
+    describe("GET /advertisement/:id", () => {
 
         it("should render a view with the selected ad", (done) => {
             request.get(`${base}${this.ad.id}`, (err, res, body) => {
@@ -86,5 +86,65 @@ describe("routes : advertisement", () => {
             });
         });
 
+    });
+    describe("POST /advertisement/:id/destroy", () => {
+
+        it("should delete the ad with the associated ID", (done) => {
+
+            Advertisement.all()
+                .then((ads) => {
+
+                    const adsCountBeforeDelete = ads.length;
+
+                    expect(adsCountBeforeDelete).toBe(1);
+
+                    request.post(`${base}${this.ad.id}/destroy`, (err, res, body) => {
+                        Advertisement.all()
+                            .then((ads) => {
+                                expect(err).toBeNull();
+                                expect(ads.length).toBe(adsCountBeforeDelete - 1);
+                                done();
+                            })
+                    });
+                });
+        });
+    });
+    describe("GET /advertisement/:id/edit", () => {
+
+        it("should render a view with an edit ad form", (done) => {
+            request.get(`${base}${this.ad.id}/edit`, (err, res, body) => {
+                expect(err).toBeNull();
+                // expect(body).toContain("Edit Ad");
+                // expect(body).toContain("JS Frameworks");
+                done();
+            });
+        });
+    });
+
+    describe("POST /advertisement/:id/update", () => {
+
+        it("should update the ad with the given values", (done) => {
+            const options = {
+                url: `${base}${this.ad.id}/update`,
+                form: {
+                    title: "JavaScript Frameworks",
+                    description: "There are a lot of them"
+                }
+            };
+
+            request.post(options,
+                (err, res, body) => {
+
+                    expect(err).toBeNull();
+
+                    Advertisement.findOne({
+                        where: { id: this.ad.id }
+                    })
+                        .then((ad) => {
+                            expect(ad.title).toBe("This is an ad.");
+                            done();
+                        });
+                });
+        });
     });
 });

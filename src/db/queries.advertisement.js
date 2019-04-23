@@ -7,8 +7,8 @@ module.exports = {
         return Advertisement.all()
 
             //#2
-            .then((advertisements) => {
-                callback(null, advertisements);
+            .then((ads) => {
+                callback(null, ads);
             })
             .catch((err) => {
                 callback(err);
@@ -34,5 +34,34 @@ module.exports = {
             .catch((err) => {
                 callback(err);
             })
-    }
+    },
+    deleteAd(id, callback){
+        return Advertisement.destroy({
+          where: {id}
+        })
+        .then((ad) => {
+          callback(null, ad);
+        })
+        .catch((err) => {
+          callback(err);
+        })
+    },
+    updateTopic(id, updatedAd, callback){
+        return Advertisement.findById(id)
+        .then((ad) => {
+          if(!ad){
+            return callback("Topic not found");
+          }
+
+          ad.update(updatedAd, {
+            fields: Object.keys(updatedAd)
+          })
+          .then(() => {
+            callback(null, ad);
+          })
+          .catch((err) => {
+            callback(err);
+          });
+        });
+      }
 }
