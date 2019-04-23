@@ -27,5 +27,14 @@ module.exports = {
                 res.redirect(303, `/advertisement/${ad.id}`);
             }
         });
+    },
+    show(req, res, next) {
+        adQueries.getAd(req.params.id, (err, ad) => {
+            if (err || ad == null) {
+                res.redirect(404, "/");
+            } else {
+                res.render("/show", { ad });
+            }
+        });
     }
 }
