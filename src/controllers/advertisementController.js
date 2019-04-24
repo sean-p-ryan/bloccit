@@ -51,7 +51,7 @@ module.exports = {
             if (err || ad == null) {
                 res.redirect(404, "/");
             } else {
-                res.render("topics/edit", { ad });
+                res.render("advertisement/edit", { ad });
             }
         });
     },
