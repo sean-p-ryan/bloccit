@@ -68,7 +68,6 @@ module.exports = {
         });
     },
     update(req, res, next) {
-
         topicQueries.updateTopic(req.params.id, req.body, (err, topic) => {
 
             if (err || topic == null) {
@@ -77,5 +76,6 @@ module.exports = {
                 res.redirect(`/topics/${topic.id}`);
             }
         });
-    }
+    },
+
 }
