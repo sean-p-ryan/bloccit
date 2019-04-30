@@ -14,10 +14,10 @@ module.exports = {
     },
     getTopic(id, callback) {
         return Topic.findById(id, {
-            include: [{
-                model: Post,
-                as: "posts"
-            }]
+            include: [
+                {model: Post, as: "posts"},
+                {model: Flair, as: "flair"}
+            ]
         })
             .then((topic) => {
                 callback(null, topic);
