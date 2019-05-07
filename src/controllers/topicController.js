@@ -51,9 +51,11 @@ module.exports = {
 
     topicQueries.getTopic(req.params.id, (err, topic) => {
       if(err || topic == null){
+          console.log("AN ERROR OCCURRED")
         res.redirect(404, "/");
       } else {
         res.render("topics/show", {topic});
+        console.log("topic/show should render")
       }
     });
   },

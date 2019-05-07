@@ -23,10 +23,6 @@ module.exports = {
                 {
                 model: Post,
                 as: 'posts'
-                },
-                {
-                model: Flair,
-                as: "flairs"    
                 }]
         })
         .then((topic) => {
