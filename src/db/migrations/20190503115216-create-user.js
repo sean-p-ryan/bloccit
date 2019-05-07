@@ -9,15 +9,17 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      validate: {
-        isEmail: { msg: "must be a valid email" }
+        allowNull: false,
+        unique: true,
+
+        validate: {
+          isEmail: { msg: "must be a valid email" }
+        },
+        type: Sequelize.STRING
       },
       password: {
-        type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

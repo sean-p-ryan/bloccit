@@ -4,89 +4,85 @@ const Post = require("../../src/db/models").Post;
 const User = require("../../src/db/models").User;
 
 describe("Topic", () => {
-
     beforeEach((done) => {
         this.topic;
         this.post;
         this.user;
-   
+
         sequelize.sync({force: true}).then((res) => {
-   
-   // #2
-          User.create({
-            email: "starman@tesla.com",
-            password: "Trekkie4lyfe"
-          })
-          .then((user) => {
-            this.user = user; //store the user
-   
-   // #3
-            Topic.create({
-              title: "Expeditions to Alpha Centauri",
-              description: "A compilation of reports from recent visits to the star system.",
-   
-   // #4
-              posts: [{
-                title: "My first visit to Proxima Centauri b",
-                body: "I saw some rocks.",
-                userId: this.user.id
-              }]
-            }, {
-   
-   // #5
-              include: {
-                model: Post,
-                as: "posts"
-              }
+
+            User.create({
+                email: "starman@tesla.com",
+                password: "Trekkie4lyfe"
             })
-            .then((topic) => {
-              this.topic = topic; //store the topic
-              this.post = topic.posts[0]; //store the post
-              done();
+            .then((user) => {
+                this.user = user;
+
+                Topic.create({
+                    title: "Expeditions to Alpha Centauri",
+                    description: "A compilation of reports of reports from recent visits to the star system.",
+
+                    posts: [{
+                        title: "My first visit to Proxima Centauri b",
+                        body: "I saw some rocks.",
+                        userId: this.user.id
+                    }]
+                }, {
+
+                    include: {
+                        model: Post,
+                        as: "posts"
+                    }
+                })
+                .then((topic) => {
+                    this.topic = topic;
+                    this.post = topic.posts[0];
+                    done();
+                })
             })
-          })
         });
-      });
-
-      describe("#create()", () => {
-
+    });
+           
+    describe("#create()", () => {
         it("should create a topic object with a title and description", (done) => {
-            Topic.create({
-                title: "Kinks Songs",
-                description: "Which is your favorite"
-            })
-            .then((topic) => {
-                expect(topic.title).toBe("Kinks Songs");
-                expect(topic.description).toBe("Which is your favorite");
-                done();
-            })
-            .catch((err) => {
-                console.log(err);
-                done();
-            });
+          Topic.create({
+              title: "Mountain Biking",
+              description: "A place to talk about all things mountain biking."
+          })
+          .then((topic) => {
+              expect(topic.title).toBe("Mountain Biking");
+              expect(topic.description).toBe("A place to talk about all things mountain biking.");
+              done();
+          })
+          .catch((err) => {
+              console.log(err);
+              done();
+          });
         });
-
-        it("should not create a topic with missing title or description", (done) => {
+        it("should not create a topic object with missing title or description", (done) => {
             Topic.create({
-                title: "Kinks Songs"
+                title: "Mountain Biking"
             })
             .then((topic) => {
+                this.topic = topic;
                 done();
             })
             .catch((err) => {
                 expect(err.message).toContain("Topic.description cannot be null");
                 done();
+            })
+        });
+    });
+    
+    describe("#getPost()", () => {
+        it("should return an array of posts associated with a specific topic", (done) => {
+            console.log(typeof(this.topic.getPost));
+            this.topic.getPosts()
+            .then((associatedPosts) => {
+                expect(associatedPosts[0].title).toBe("My first visit to Proxima Centauri b");
+                expect(associatedPosts[0].topicId).toBe(this.topic.id);
+                done();
             });
         });
-      });
-
-      describe("#getPosts()", () => {
-          it("should return the associated posts", (done) => {
-              this.topic.getPosts()
-              .then((posts) => {
-                  expect(posts[0].title).toBe("My first visit to Proxima Centauri b");
-                  done();
-              });
-          });
-      });
     });
+});

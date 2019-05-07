@@ -2,6 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
+    
     return queryInterface.addColumn(
       "Posts",
       "userId",
@@ -16,6 +17,7 @@ module.exports = {
         },
       }
     );
+    
   },
 
   down: (queryInterface, Sequelize) => {
