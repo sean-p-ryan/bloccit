@@ -12,7 +12,7 @@ describe("routes : topics", () => {
     sequelize.sync({force: true}).then(() => {
 
       Topic.create({
-        title: "JS Frameworks",
+        title: "JavaScript Frameworks",
         description: "There is a lot of them"
       })
       .then((topic) => {
@@ -66,7 +66,7 @@ describe("routes : topics", () => {
       request.get(base, (err, res, body) => {
         expect(err).toBeNull();
         expect(body).toContain("Topics");
-        expect(body).toContain("JS Frameworks");
+        expect(body).toContain("JavaScript Frameworks");
         done();
       });
     });
@@ -118,7 +118,7 @@ describe("routes : topics", () => {
     it("should render a view with the selected topic", (done) => {
       request.get(`${base}${this.topic.id}`, (err, res, body) => {
         expect(err).toBeNull();
-        expect(body).toContain("JS Frameworks");
+        expect(body).toContain("JavaScript Frameworks");
         done();
       });
     });
@@ -157,7 +157,7 @@ describe("routes : topics", () => {
       request.get(`${base}${this.topic.id}/edit`, (err, res, body) => {
         expect(err).toBeNull();
         expect(body).toContain("Edit Topic");
-        expect(body).toContain("JS Frameworks");
+        expect(body).toContain("JavaScript Frameworks");
         done();
       });
     });
@@ -212,7 +212,7 @@ describe("routes : topics", () => {
         request.get(base, (err, res, body) => {
           expect(err).toBeNull();
           expect(body).toContain("Topics");
-          expect(body).toContain("JS Frameworks");
+          expect(body).toContain("JavaScript Frameworks");
           done();
         });
       });
@@ -263,7 +263,7 @@ describe("routes : topics", () => {
       it("should render a view with the selected topic", (done) => {
         request.get(`${base}${this.topic.id}`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).toContain("JS Frameworks");
+          expect(body).toContain("JavaScript Frameworks");
           done();
         });
       });
@@ -302,7 +302,7 @@ describe("routes : topics", () => {
         request.get(`${base}${this.topic.id}/edit`, (err, res, body) => {
           expect(err).toBeNull();
           expect(body).not.toContain("Edit Topic");
-          expect(body).toContain("JS Frameworks");
+          expect(body).toContain("JavaScript Frameworks");
           done();
         });
       });
@@ -329,7 +329,7 @@ describe("routes : topics", () => {
               where: { id: this.topic.id }
             })
             .then((topic) => {
-              expect(topic.title).toBe("JS Frameworks");
+              expect(topic.title).toBe("JavaScript Frameworks");
               done();
             });
           });
