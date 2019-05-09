@@ -20,8 +20,6 @@ module.exports = {
         };
         adQueries.addAdvertisement(newAd, (err, ad) => {
             if (err || !ad) {
-                console.log("AD:", ad);
-                console.log("ERROR:", err);
                 res.redirect(500, "/advertisement/new");
             } else {
                 res.redirect(303, `/advertisement/${ad.id}`);

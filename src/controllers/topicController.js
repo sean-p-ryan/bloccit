@@ -55,7 +55,6 @@ module.exports = {
         res.redirect(404, "/");
       } else {
         res.render("topics/show", {topic});
-        console.log("topic/show should render")
       }
     });
   },
