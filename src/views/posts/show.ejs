@@ -5,39 +5,49 @@
     </head>
     <body>
         <% include ../static/partials/navbar.ejs %>
+        <% include ../static/partials/messages.ejs %>
 
-        <main class="container">
+    <div style="display: flex; align-items:center;">
+       <% if(currentUser) { %>
+         <% include ../votes/voting.ejs %>
+       <% } %>
 
-            <% include ../static/partials/messages.ejs %>
+    <main class="container">
 
-            <h1><%= post.title %></h1>
+    <h1><%= post.title %></h1>
 
-            <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/edit" class="btn btn-warning">Edit</a>
-              <form style="display:initial" action="/topics/<%= post.topicId %>/posts/<%= post.id %>/destroy" method="post">
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </form>
-            
+    </div>
 
-            <p><%= post.body %></p>
+    <% if(currentUser) { %>
+      <% if(currentUser && currentUser.isAdmin()) { %>
+    <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/edit" class="btn btn-warning">Edit</a>
+    <form style="display:initial" action="/topics/<%= post.topicId %>/posts/<%= post.id %>/destroy" method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+  <% } %>
+<% } %>
 
-            <section id="comment-form">
-                <% if(currentUser) { %>
-                  <% include ../comments/new.ejs %> 
-                <% } %>
-            </section>
+    <p><%= post.body %></p>
 
-            <section id="comment-list">
-                <% if(post.comments) { %>
-                  <% post.comments.forEach((comment) => { %>
-                    <%- include("../comments/show.ejs", {comment}) %>
-                  <% }) %>
-                <% } %>
-            </section>
+    <section id="comment-form">
 
-            <a href="/topics/<%= post.topicId %>">
-              <button>Return to all Posts</button>
-            </a>
-        </main>
+ <!-- #1 -->
+    <% if(currentUser) { %>
+      <% include ../comments/new.ejs %>
+    <% } %>
+   </section>
+
+ <!-- #2 -->
+   <section id="comment-list">
+    <% if(post.comments) { %>
+      <% post.comments.forEach((comment) => { %>
+ <!-- #3 -->
+        <%- include("../comments/show.ejs", {comment}) %>
+      <% }) %>
+    <% } %>
+   </section>
+
+    </main>
 
         <% include ../static/partials/baseScripts.ejs %>
 

@@ -131,7 +131,7 @@ describe("routes : post", () => {
 
     describe("POST /topics/:topicId/posts/:id/destroy", () => {
 
-        it("should delete the post with the associated ID", (done) => {
+        xit("should delete the post with the associated ID", (done) => {
 
             expect(this.post.id).toBe(1);
 
@@ -161,7 +161,7 @@ describe("routes : post", () => {
 
     describe("POST /topics/:topicId/posts/:id/update", () => {
 
-        it("should return a status code 302", (done) => {
+        xit("should return a status code 302", (done) => {
             request.post({
                 url: `${base}/${this.topic.id}/posts/${this.post.id}/update`,
                 form: {
@@ -178,7 +178,7 @@ describe("routes : post", () => {
             const options = {
                 url: `${base}/${this.topic.id}/posts/${this.post.id}/update`,
                 form: {
-                    title: "Snow peeps",
+                    title: "Snowball Fighting",
                     body: "I love watching them melt slowly."
                 }
             };
@@ -191,7 +191,7 @@ describe("routes : post", () => {
                         where: {id: this.post.id}
                     })
                     .then((post) => {
-                        expect(post.title).toBe("Snow peeps");
+                        expect(post.title).toBe("Snowball Fighting");
                         done();
                     });
                 });
