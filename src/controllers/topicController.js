@@ -19,10 +19,13 @@ module.exports = {
     const authorized = new Authorizer(req.user).new();
 
      if(authorized) {
+       console.log("USER IS AUTHORIZED")
        res.render("topics/new");
      } else {
+      console.log("USER IS NOT AUTHORIZED")
        req.flash("notice", "You are not authorized to do that.");
        res.redirect("/topics");
+
      }
   },
 
