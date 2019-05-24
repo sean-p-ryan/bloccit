@@ -1,12 +1,10 @@
-
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Post = sequelize.define('Post', {
-
-    title: {
+  const Post = sequelize.define('Post', {
+     title: {
        type: DataTypes.STRING,
        allowNull: false
-     },
+     },    
      body: {
        type: DataTypes.STRING,
        allowNull: false
@@ -15,13 +13,12 @@ module.exports = (sequelize, DataTypes) => {
        type: DataTypes.INTEGER,
        allowNull: false
      },
-      userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      }
+     userId: {
+       type: DataTypes.INTEGER,
+       allowNull: false
+     }           
   }, {});
   Post.associate = function(models) {
-
      Post.belongsTo(models.Topic, {
        foreignKey: "topicId",
        onDelete: "CASCADE"
@@ -29,26 +26,38 @@ module.exports = (sequelize, DataTypes) => {
      Post.belongsTo(models.User, {
        foreignKey: "userId",
        onDelete: "CASCADE"
-      });
+   }); 
      Post.hasMany(models.Comment, {
        foreignKey: "postId",
        as: "comments"
-     });
-     Post.hasMany(models.Vote, {
+   });
+   Post.hasMany(models.Favorite, {
      foreignKey: "postId",
-     as: "votes"
-    });
+     as: "favorites"
+   });     
+     Post.hasMany(models.Vote, {
+       foreignKey: "postId",
+       as: "votes"
+   });   
+   Post.afterCreate((post, callback) => {
+     return models.Favorite.create({
+       userId: post.userId,
+       postId: post.id
+     });
+   });        
   };
-
   Post.prototype.getPoints = function(){
 
-// #1
-    if(this.votes.length === 0) return 0
+ // #1
+     if(this.votes.length === 0) return 0
 
-// #2
-    return this.votes
-      .map((v) => { return v.value })
-      .reduce((prev, next) => { return prev + next });
-  };
+ // #2
+     return this.votes
+       .map((v) => { return v.value })
+       .reduce((prev, next) => { return prev + next });
+   };
+   Post.prototype.getFavoriteFor = function(userId){
+     return this.favorites.find((favorite) => { return favorite.userId == userId });
+   };   
   return Post;
 };
