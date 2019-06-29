@@ -1,5 +1,5 @@
 module.exports = {
     index(req, res, next) {
-        res.render("/", { title: "Welcome to Shreddit" });
+        res.render("static/index", { title: "Welcome to Shreddit" });
     }
 }
