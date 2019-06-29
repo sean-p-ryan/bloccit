@@ -5,10 +5,8 @@
 
 // describe("routes : static", () => {
 
-//   //#1
 //   describe("GET /", () => {
 
-//     //#2
 //     it("should return status code 200 and have 'Welcome to Bloccit' in the body of the response", (done) => {
 
 //       //#3
