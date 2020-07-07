@@ -13,7 +13,7 @@
     "faker": "^4.1.0",
     "install": "^0.12.2",
     "jasmine": "^3.4.0",
-    "npm": "^6.9.0",
+    "npm": "^6.14.6",
     "request": "^2.83.0"
   },
   "dependencies": {
